@@ -20,8 +20,12 @@ namespace KineFigu
             this.Y = Y;
         }
 
-        public static explicit operator Vector2(Vector2PLUS target) { return new Vector2(target.X, target.Y); }
+        public static implicit operator Vector2(Vector2PLUS target) { return new Vector2(target.X, target.Y); }
 
         public static Vector2PLUS operator +(Vector2PLUS target, Vector2PLUS other) { return new Vector2PLUS(target.X + other.X, target.Y + other.Y); }
+        public static Vector2PLUS operator -(Vector2PLUS target, Vector2PLUS other) { return new Vector2PLUS(target.X - other.X, target.Y - other.Y); }
+
+        public static Vector2PLUS operator *(Vector2PLUS target, float other) { return new Vector2PLUS(target.X * other, target.Y * other); }
+        public static Vector2PLUS operator /(Vector2PLUS target, float other) { if (other == 0) { return new Vector2PLUS(0, 0); } return new Vector2PLUS(target.X / other, target.Y / other); }
     }
 }

@@ -32,7 +32,7 @@ namespace KineFigu
         /// <summary> 読み込み処理 </summary>
         protected override void LoadContent()
         {
-            mainScene.Load();
+            mainScene.Load(Content);
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
         }
@@ -59,13 +59,13 @@ namespace KineFigu
         /// <param name="gameTime"></param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // 2次元宣言
             spriteBatch.Begin();
             
             // シーン内描画
-            mainScene.Draw();
+            mainScene.Draw(spriteBatch);
 
             // 2次元描画終了
             spriteBatch.End();
