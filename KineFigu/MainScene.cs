@@ -7,24 +7,32 @@ namespace KineFigu
     /// <summary> 本体部分 </summary>
     class MainScene
     {
-        List<Square> square;
+        // 矩形
+        List<Square> squares;
 
+        // 円形
+        List<Circle> circles;
+
+        // 纏める用
         List<Figure> figures;
 
         public MainScene()
         {
             figures = new List<Figure>();
 
-            square = new List<Square>();
+            squares = new List<Square>();
+            circles = new List<Circle>();
 
-
-            square.Add(new Square(new Vector2PLUS(100, 100), new Vector2PLUS(50, 50)));
+            squares.Add(new Square(new Vector2PLUS(100, 100), new Vector2PLUS(50, 50)));
+            circles.Add(new Circle(new Vector2PLUS(200, 100), new Vector2PLUS(50, 50)));
         }
 
+        /// <summary> 図形クラスを纏める </summary>
         private void FiguresSet()
         {
             figures.Clear();
-            figures.AddRange(square);
+            figures.AddRange(squares);
+            figures.AddRange(circles);
         }
 
         /// <summary> 初期化処理 </summary>

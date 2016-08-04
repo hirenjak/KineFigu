@@ -41,7 +41,13 @@ namespace KineFigu
             sBatch.Draw(
                 texture, 
                 position,
-                color
+                new Rectangle(0, 0, texture.Width, texture.Height),
+                color,
+                0.0f,
+                new Vector2(0, 0),
+                size / 128,
+                SpriteEffects.None,
+                0.5f
                 );
         }
     }
