@@ -6,7 +6,7 @@ namespace KineFigu
 {
     class Figure
     {
-        private string texAddres { get; }
+        private string texAddress { get; }
         private Texture2D texture { get; set; }
 
         protected Vector2PLUS initPosi { get; }
@@ -15,10 +15,12 @@ namespace KineFigu
         protected Color color { get; set; }
         public Vector2PLUS centerPosi { get { return position + (size / 2); } }
 
-        public Figure(string texAddres, Vector2PLUS initPosi)
+        public Figure(string texAddres, Vector2PLUS initPosi, Vector2PLUS size)
         {
-            this.texAddres = texAddres;
+            this.texAddress = texAddres;
             this.initPosi = initPosi;
+            this.size = size;
+            this.color = Color.White;
 
             Initialize();
         }
@@ -28,10 +30,11 @@ namespace KineFigu
             this.position = initPosi;
         }
 
-        public void Load()
+        public void Load(ContentManager Content)
         {
-
+            texture = Content.Load<Texture2D>(texAddress);
         }
+        
 
         public void Draw(SpriteBatch sBatch)
         {

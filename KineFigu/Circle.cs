@@ -8,7 +8,7 @@ namespace KineFigu
 {
     class Circle : Figure
     {
-        public Circle(Vector2PLUS initPosi) : base("Circle", initPosi)
+        public Circle(Vector2PLUS initPosi, Vector2PLUS size) : base("Circle", initPosi, size)
         {
 
         }
