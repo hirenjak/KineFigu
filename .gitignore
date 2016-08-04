@@ -2,4 +2,5 @@
 # この .gitignore ファイルは Microsoft(R) Visual Studio によって自動的に作成されました。
 ################################################################################
 
-/KineFigu/bin/Windows/x86/Debug
+/KineFigu/bin/
+/KineFigu/obj/
