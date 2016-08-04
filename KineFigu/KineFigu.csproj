@@ -38,6 +38,8 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Circle.cs" />
+    <Compile Include="Figure.cs" />
     <Compile Include="Source.cs" />
     <Compile Include="MainScene.cs" />
     <Compile Include="Program.cs" />
