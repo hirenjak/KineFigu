@@ -5,16 +5,40 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KineFigu", "KineFigu\KineFigu.csproj", "{D0AA8B23-8AFA-477E-B66A-35E0F81F2271}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestKinect", "TestKinect\TestKinect.csproj", "{FE132112-EE58-4CAC-9029-D59D6E565F77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLeapMotion", "TestLeapMotion\TestLeapMotion.csproj", "{D462C95E-3803-4A04-82BE-613FAB3CB760}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0AA8B23-8AFA-477E-B66A-35E0F81F2271}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{D0AA8B23-8AFA-477E-B66A-35E0F81F2271}.Debug|x86.ActiveCfg = Debug|x86
 		{D0AA8B23-8AFA-477E-B66A-35E0F81F2271}.Debug|x86.Build.0 = Debug|x86
+		{D0AA8B23-8AFA-477E-B66A-35E0F81F2271}.Release|Any CPU.ActiveCfg = Release|x86
 		{D0AA8B23-8AFA-477E-B66A-35E0F81F2271}.Release|x86.ActiveCfg = Release|x86
 		{D0AA8B23-8AFA-477E-B66A-35E0F81F2271}.Release|x86.Build.0 = Release|x86
+		{FE132112-EE58-4CAC-9029-D59D6E565F77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE132112-EE58-4CAC-9029-D59D6E565F77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE132112-EE58-4CAC-9029-D59D6E565F77}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FE132112-EE58-4CAC-9029-D59D6E565F77}.Debug|x86.Build.0 = Debug|Any CPU
+		{FE132112-EE58-4CAC-9029-D59D6E565F77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE132112-EE58-4CAC-9029-D59D6E565F77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE132112-EE58-4CAC-9029-D59D6E565F77}.Release|x86.ActiveCfg = Release|Any CPU
+		{FE132112-EE58-4CAC-9029-D59D6E565F77}.Release|x86.Build.0 = Release|Any CPU
+		{D462C95E-3803-4A04-82BE-613FAB3CB760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D462C95E-3803-4A04-82BE-613FAB3CB760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D462C95E-3803-4A04-82BE-613FAB3CB760}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D462C95E-3803-4A04-82BE-613FAB3CB760}.Debug|x86.Build.0 = Debug|Any CPU
+		{D462C95E-3803-4A04-82BE-613FAB3CB760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D462C95E-3803-4A04-82BE-613FAB3CB760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D462C95E-3803-4A04-82BE-613FAB3CB760}.Release|x86.ActiveCfg = Release|Any CPU
+		{D462C95E-3803-4A04-82BE-613FAB3CB760}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
