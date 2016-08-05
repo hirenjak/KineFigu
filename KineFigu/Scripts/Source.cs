@@ -2,12 +2,15 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+
 namespace KineFigu
 {
     public class Source : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        Kinect kinect;
 
         // メインシーン
         MainScene mainScene;
@@ -19,6 +22,8 @@ namespace KineFigu
 
             // インスタンス
             mainScene = new MainScene();
+
+            kinect = new Kinect();
         }
         
         /// <summary> 初期化処理 </summary>
@@ -50,7 +55,7 @@ namespace KineFigu
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            mainScene.Logic();
+            mainScene.Logic(kinect.Get_LeftHandPosition(), kinect.Get_RightHandPosition());
 
             base.Update(gameTime);
         }

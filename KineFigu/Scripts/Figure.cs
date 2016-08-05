@@ -68,5 +68,10 @@ namespace KineFigu
                 0.5f
                 );
         }
+
+        public void Set_Position()
+        {
+
+        }
     }
 }

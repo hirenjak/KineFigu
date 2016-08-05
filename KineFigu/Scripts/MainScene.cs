@@ -13,6 +13,9 @@ namespace KineFigu
         // 円形
         List<Circle> circles;
 
+        Dot leftHnadPoint;
+        Dot rightHnadPoint;
+
         // 纏める用
         List<Figure> figures;
 
@@ -49,8 +52,10 @@ namespace KineFigu
         }
 
         /// <summary> 計算処理 </summary>
-        public void Logic()
+        public void Logic(Vector2PLUS leftHandPosi, Vector2PLUS rightHandPosi)
         {
+            leftHnadPoint.
+
             FiguresSet();
         }
 
