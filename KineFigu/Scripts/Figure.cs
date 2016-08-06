@@ -69,9 +69,9 @@ namespace KineFigu
                 );
         }
 
-        public void Set_Position()
+        public void Set_Position(Vector2PLUS position)
         {
-
+            this.position = position;
         }
     }
 }
