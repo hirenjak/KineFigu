@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using System.IO;
+
 
 namespace KineFigu
 {
@@ -24,6 +26,7 @@ namespace KineFigu
             mainScene = new MainScene();
 
             kinect = new Kinect();
+            sWriter = new StreamWriter(".\\Log.txt");
         }
         
         /// <summary> 初期化処理 </summary>
@@ -48,14 +51,21 @@ namespace KineFigu
             // 基本使わない
         }
 
+        StreamWriter sWriter;
+
         /// <summary> 計算処理 </summary>
         /// <param name="gameTime"></param>
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            { sWriter.Close(); sWriter.Dispose(); Exit(); }
 
             mainScene.Logic(kinect.Get_LeftHandPosition(), kinect.Get_RightHandPosition());
+
+
+            sWriter.WriteLine(kinect.Get_RightHandPosition().X + "," + kinect.Get_RightHandPosition().Y);
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter)) { }
 
             base.Update(gameTime);
         }

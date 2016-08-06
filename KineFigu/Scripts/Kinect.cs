@@ -31,6 +31,7 @@ namespace KineFigu
         {
             using (var bFrame = e.FrameReference.AcquireFrame())
             {
+                if (bFrame == null) { return; }
                 bFrame.GetAndRefreshBodyData(bodies);
             }
 
