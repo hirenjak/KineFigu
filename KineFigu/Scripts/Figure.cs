@@ -68,13 +68,13 @@ namespace KineFigu
 
             if(vector.X != 0)
             {
-                float tempVal = 0.5f;
+                float tempVal = 0.05f;
                 if(vector.X < -tempVal ){ vector.X+= tempVal; }
                 else if(vector.X > tempVal) { vector.X -= tempVal; }
                 else { vector.X = 0; }
             }
 
-            if (position.Y + vector.Y + size.Y > screenSize.Y) { position.Y = screenSize.Y - size.Y; vector.Y = 0; }
+            if (position.Y + vector.Y + size.Y > screenSize.Y -100) { position.Y = screenSize.Y - size.Y -100; vector.Y = 0; }
 
             if (collisionFlag)
             {
