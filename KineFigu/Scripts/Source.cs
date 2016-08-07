@@ -17,6 +17,8 @@ namespace KineFigu
         // メインシーン
         MainScene mainScene;
 
+        Vector2PLUS screenSize;
+
         public Source()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -26,7 +28,8 @@ namespace KineFigu
             mainScene = new MainScene();
 
             kinect = new Kinect();
-            sWriter = new StreamWriter(".\\Log.txt");
+
+            screenSize = new Vector2PLUS(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
         }
         
         /// <summary> 初期化処理 </summary>
@@ -50,20 +53,17 @@ namespace KineFigu
         {
             // 基本使わない
         }
-
-        StreamWriter sWriter;
-
+        
         /// <summary> 計算処理 </summary>
         /// <param name="gameTime"></param>
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            { sWriter.Close(); sWriter.Dispose(); Exit(); }
+            {  Exit(); }
 
-            mainScene.Logic(kinect.Get_LeftHandPosition(), kinect.Get_RightHandPosition());
+            mainScene.Logic(screenSize, kinect.Get_LeftHandPosition(), kinect.Get_RightHandPosition());
 
-
-            sWriter.WriteLine(kinect.Get_RightHandPosition().X + "," + kinect.Get_RightHandPosition().Y);
+            
 
             if (Keyboard.GetState().IsKeyDown(Keys.Enter)) { }
 
@@ -78,7 +78,7 @@ namespace KineFigu
 
             // 2次元宣言
             spriteBatch.Begin();
-            
+
             // シーン内描画
             mainScene.Draw(spriteBatch);
 

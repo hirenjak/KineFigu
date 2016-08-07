@@ -4,6 +4,7 @@
 
 /KineFigu/bin/
 /KineFigu/obj/
-/TestKinect/bin/Debug
-/TestKinect/obj/Debug
-/TestLeapMotion/obj/Debug
+/TestKinect/bin/
+/TestKinect/obj/
+/TestLeapMotion/obj/
+/TestLeapMotion/bin/
