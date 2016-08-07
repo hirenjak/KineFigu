@@ -7,15 +7,18 @@ namespace KineFigu
     /// <summary> 図形クラス </summary>
     class Figure
     {
+        protected static ContentManager Content { get; private set; }
+        public static void Set_ContentManager(ContentManager _Content) { Content = _Content; }
+
         /// <summary> 画像アドレス </summary>
         private string texAddress { get; }
         /// <summary> 画像 </summary>
-        private Texture2D texture { get; set; }
+        protected Texture2D texture { get; set; }
 
         /// <summary> 初期位置 </summary>
         protected Vector2PLUS initPosi { get; }
         /// <summary> 現在位置 </summary>
-        protected Vector2PLUS position { get; set; }
+        public Vector2PLUS position { get; protected set; }
         /// <summary> 大きさ </summary>
         protected Vector2PLUS size { get; set; }
         /// <summary> 描画色 </summary>
@@ -28,9 +31,8 @@ namespace KineFigu
         /// <param name="texAddres">画像アドレス</param>
         /// <param name="initPosi">初期位置</param>
         /// <param name="size">大きさ</param>
-        public Figure(string texAddres, Vector2PLUS initPosi, Vector2PLUS size)
+        public Figure(Vector2PLUS initPosi, Vector2PLUS size)
         {
-            this.texAddress = texAddres;
             this.initPosi = initPosi;
             this.size = size;
             this.color = Color.White;
@@ -44,14 +46,6 @@ namespace KineFigu
         {
             this.position = initPosi;
         }
-
-        /// <summary> 読み込み処理 </summary>
-        /// <param name="Content">ContentManager</param>
-        public void Load(ContentManager Content)
-        {
-            texture = Content.Load<Texture2D>(texAddress);
-        }
-        
         /// <summary> 描画処理 </summary>
         /// <param name="sBatch">SpriteBatch</param>
         public void Draw(SpriteBatch sBatch)

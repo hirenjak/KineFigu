@@ -24,6 +24,8 @@ namespace KineFigu
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
+            Figure.Set_ContentManager(Content);
+
             // インスタンス
             mainScene = new MainScene();
 
@@ -43,6 +45,7 @@ namespace KineFigu
         /// <summary> 読み込み処理 </summary>
         protected override void LoadContent()
         {
+
             mainScene.Load(Content);
 
             spriteBatch = new SpriteBatch(GraphicsDevice);

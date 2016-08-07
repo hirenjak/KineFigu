@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace KineFigu
 {
     class Dot : Figure
     {
-        public Dot(Vector2PLUS initPosi, Vector2PLUS size): base("Dot", initPosi, size)
+        static Dot()
         {
+        }
 
+        public Dot(Vector2PLUS initPosi, Vector2PLUS size): base(initPosi, size)
+        {
+            texture = Content.Load<Texture2D>("Dot");
         }
     }
 }

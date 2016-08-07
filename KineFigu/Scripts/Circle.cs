@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace KineFigu
 {
     class Circle : Figure
     {
-        public Circle(Vector2PLUS initPosi, Vector2PLUS size) : base("Circle", initPosi, size)
+        public Circle(Vector2PLUS initPosi, Vector2PLUS size) : base(initPosi, size)
         {
-
+            texture = Content.Load<Texture2D>("Circle");
         }
+        
     }
 }

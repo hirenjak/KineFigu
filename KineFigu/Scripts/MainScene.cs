@@ -34,18 +34,14 @@ namespace KineFigu
 
             squares = new List<Square>();
             circles = new List<Circle>();
-
-            squares.Add(new Square(new Vector2PLUS(100, 100), new Vector2PLUS(50, 50)));
-            circles.Add(new Circle(new Vector2PLUS(200, 100), new Vector2PLUS(50, 50)));
-            leftHnadPoint = new Dot(new Vector2PLUS(), new Vector2PLUS(30, 30));
             rightHnadPoint = new Dot[10];
 
-            direction = new float[10];
-            for (int ID = 0; ID < 10; ID++)
+            direction = new float[100];
+            
+            for (int ID = 0; ID < 100; ID++)
             {
-                rightHnadPoint[ID] = new Dot(new Vector2PLUS(), new Vector2PLUS(10, 10));
                 direction[ID] = 0;
-                directionName[ID] = DirectionName.Center;
+                directionNames[ID] = DirectionName.Center;
             }
         }
 
@@ -62,24 +58,42 @@ namespace KineFigu
         /// <summary> 初期化処理 </summary>
         public void Initialize()
         {
+            squares.Add(new Square(new Vector2PLUS(100, 100), new Vector2PLUS(50, 50)));
+            circles.Add(new Circle(new Vector2PLUS(200, 100), new Vector2PLUS(50, 50)));
+            leftHnadPoint = new Dot(new Vector2PLUS(), new Vector2PLUS(30, 30));
+            for (int ID = 0; ID < 10; ID++)
+            {
+                rightHnadPoint[ID] = new Dot(new Vector2PLUS(), new Vector2PLUS(10, 10));
 
+            }
         }
 
         /// <summary> 読み込み処理 </summary>
         public void Load(ContentManager Content)
         {
             FiguresSet();
-            foreach(var value in figures) { value.Load(Content); }
 
             sFont = Content.Load<SpriteFont>("Arial");
-        }
-        
 
-        Vector2PLUS[] rightHandPosi;
+
+        }
+
+
+        bool flagEnter = false;
+        bool flagCreate = false;
+
+        bool flagTop = false, flagBottom = false, flagLeft = false, flagRight = false;
+
         float[] direction;
 
         private enum DirectionName { Right, TopRight, Top, TopLeft, Left, BottomLeft, Bottom, BottomRight, Center}
-        DirectionName[] directionName = new DirectionName[10];
+
+
+        DirectionName nowDirectionName = DirectionName.Center;
+        DirectionName[] directionNames = new DirectionName[100];
+
+        Vector2PLUS startPosi;
+        Vector2PLUS endPosi;
 
         /// <summary> 計算処理 </summary>
         public void Logic(Vector2PLUS screenSize, Vector2PLUS leftHandPosi, Vector2PLUS[] rightHandPosi)
@@ -92,7 +106,7 @@ namespace KineFigu
 
             Vector2PLUS tempVect = rightHandPosi[0] - rightHandPosi[1];
             float offset = 0.01f;
-            if (tempVect.X < offset && tempVect.X > -offset && tempVect.Y < offset && tempVect.Y > -offset) { direction[0] = 0; directionName[0] = DirectionName.Center; }
+            if (tempVect.X < offset && tempVect.X > -offset && tempVect.Y < offset && tempVect.Y > -offset) { direction[0] = 0; directionNames[0] = DirectionName.Center; }
             else
             {
                 float tempValue = (float)Math.Atan((tempVect.Y / tempVect.X));
@@ -102,31 +116,80 @@ namespace KineFigu
                 if (tempVect.X < 0) { direction[0] += 180; }
                 else if (tempVect.Y < 0) { direction[0] += 360; }
 
-                if (direction[0] >= 337.5f && direction[0] < 22.5f) { directionName[0] = DirectionName.Right; }
-                else if (direction[0] >= 22.5f && direction[0] < 67.5f) { directionName[0] = DirectionName.TopRight; }
-                else if (direction[0] >= 67.5f && direction[0] < 112.5f) { directionName[0] = DirectionName.Top; }
-                else if (direction[0] >= 112.5f && direction[0] < 157.5f) { directionName[0] = DirectionName.TopLeft; }
-                else if (direction[0] >= 157.5f && direction[0] < 202.5f) { directionName[0] = DirectionName.Left; }
-                else if (direction[0] >= 202.5f && direction[0] < 247.5f) { directionName[0] = DirectionName.BottomLeft; }
-                else if (direction[0] >= 247.5f && direction[0] < 292.5f) { directionName[0] = DirectionName.Bottom; }
-                else if (direction[0] >= 292.5f && direction[0] < 337.5f) { directionName[0] = DirectionName.BottomRight; }
+                if (direction[0] >= 337.5f || direction[0] < 22.5f) { nowDirectionName = DirectionName.Right; }
+                else if (direction[0] >= 22.5f && direction[0] < 67.5f) { nowDirectionName = DirectionName.TopRight; }
+                else if (direction[0] >= 67.5f && direction[0] < 112.5f) { nowDirectionName = DirectionName.Top; }
+                else if (direction[0] >= 112.5f && direction[0] < 157.5f) { nowDirectionName = DirectionName.TopLeft; }
+                else if (direction[0] >= 157.5f && direction[0] < 202.5f) { nowDirectionName = DirectionName.Left; }
+                else if (direction[0] >= 202.5f && direction[0] < 247.5f) { nowDirectionName = DirectionName.BottomLeft; }
+                else if (direction[0] >= 247.5f && direction[0] < 292.5f) { nowDirectionName = DirectionName.Bottom; }
+                else if (direction[0] >= 292.5f && direction[0] < 337.5f) { nowDirectionName = DirectionName.BottomRight; }
             }
 
+            for (int ID = 0; ID < directionNames.Length; ID++)
+            {
+                if (ID != directionNames.Length - 1)
+                {
+                    direction[ID + 1] = direction[ID];
+                }
+            }
 
             for (int ID = 0; ID < 10; ID++)
             {
-                if (ID != 9)
-                {
-                    direction[ID + 1] = direction[ID];
-                    directionName[ID + 1] = directionName[ID];
-                }
-
                 rightHnadPoint[ID].Set_Position(PosiConverter(new Vector2PLUS(rightHandPosi[ID].X, rightHandPosi[ID].Y * -1), new Vector2PLUS(2.0f, 2.0f), screenSize));
             }
 
-            //this.rightHandPosi = rightHandPosi;
-            
+            // 方向の履歴を保存
+            if (nowDirectionName != directionNames[0])
+            {
+                for(int ID = directionNames.Length - 1; ID > 0; ID--)
+                {
+                    directionNames[ID] = directionNames[ID - 1];
+                }
 
+                directionNames[0] = nowDirectionName;
+            }
+
+            for(int ID = 0; ID < directionNames.Length; ID++)
+            {
+                if (directionNames[ID] == DirectionName.Bottom)
+                {
+                    for (int ID2 = ID; ID2 < directionNames.Length; ID2++)
+                    {
+                        if (directionNames[ID2] == DirectionName.Right)
+                        {
+                            for (int ID3 = ID2; ID3 < directionNames.Length; ID3++)
+                            {
+                                if (directionNames[ID3] == DirectionName.Top)
+                                {
+                                    for (int ID4 = ID3; ID4 < directionNames.Length; ID4++)
+                                    {
+                                        if (directionNames[ID4] == DirectionName.Left)
+                                        {
+                                            flagCreate = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (flagCreate) { break; }
+                            }
+                        }
+                        if (flagCreate) { break; }
+                    }
+                }
+                if (flagCreate) { break; }
+            }
+
+            if (flagCreate)
+            {
+                squares.Add(new Square(rightHnadPoint[0].position, new Vector2PLUS(100, 100)));
+                flagCreate = false;
+                for (int ID = 0; ID < directionNames.Length - 1; ID++)
+                {
+                    directionNames[ID] = DirectionName.Center;
+                }
+            }
+            
             // 図形クラスをまとめる処理
             FiguresSet();
         }
@@ -140,17 +203,47 @@ namespace KineFigu
         public void Draw(SpriteBatch sBatch)
         {
             foreach (var value in figures) { value.Draw(sBatch); }
-
+            int num = 0;
             sBatch.DrawString(
                     sFont,
-                    directionName[0].ToString(),
+                    directionNames[0].ToString(),
                     new Vector2(0, 0),
                     Color.White
                     );
             sBatch.DrawString(
                     sFont,
                     direction[0].ToString(),
-                    new Vector2(0, 30),
+                    new Vector2(0, num+=30),
+                    Color.White
+                    );
+            sBatch.DrawString(
+                    sFont,
+                    flagCreate.ToString(),
+                    new Vector2(0, num += 30),
+                    Color.White
+                    );
+            sBatch.DrawString(
+                    sFont,
+                    flagCreate.ToString(),
+                    new Vector2(0, num += 30),
+                    Color.White
+                    );
+            sBatch.DrawString(
+                    sFont,
+                    flagCreate.ToString(),
+                    new Vector2(0, num += 30),
+                    Color.White
+                    );
+            sBatch.DrawString(
+                    sFont,
+                    flagCreate.ToString(),
+                    new Vector2(0, num += 30),
+                    Color.White
+                    );
+            sBatch.DrawString(
+                    sFont,
+                    flagCreate.ToString(),
+                    new Vector2(0, num += 30),
                     Color.White
                     );
 
