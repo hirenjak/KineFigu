@@ -13,6 +13,7 @@ namespace KineFigu
         SpriteBatch spriteBatch;
 
         Kinect kinect;
+        LeapMotion leapMotion;
 
         // メインシーン
         MainScene mainScene;
@@ -32,8 +33,15 @@ namespace KineFigu
             mainScene = new MainScene();
 
             kinect = new Kinect();
+            leapMotion = new LeapMotion();
 
             screenSize = new Vector2PLUS(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+        }
+
+        ~Source()
+        {
+            kinect.Stop();
+            leapMotion.Stop();
         }
         
         /// <summary> 初期化処理 </summary>
@@ -67,7 +75,7 @@ namespace KineFigu
 
             if (keyState.IsKeyDown(Keys.Escape)) {  Exit(); }
 
-            mainScene.Logic(keyState, screenSize, kinect.Get_LeftHandPosition(), kinect.Get_RightHandPosition());
+            mainScene.Logic(keyState, leapMotion.Get_Flag(), screenSize, kinect.Get_LeftHandPosition(), kinect.Get_RightHandPosition());
 
             
 

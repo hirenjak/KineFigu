@@ -86,11 +86,15 @@ namespace KineFigu
         DirectionName nowDirectionName = DirectionName.Center;
         DirectionName[] directionNames = new DirectionName[100];
 
+        bool leftHnadShowFlag = true;
+
         Vector2PLUS startPosi;
         Vector2PLUS endPosi;
 
+        bool handFlag = false;
+
         /// <summary> 計算処理 </summary>
-        public void Logic(KeyboardState keyState, Vector2PLUS screenSize, Vector2PLUS leftHandPosi, Vector2PLUS[] rightHandPosi)
+        public void Logic(KeyboardState keyState, bool handFlag, Vector2PLUS screenSize, Vector2PLUS leftHandPosi, Vector2PLUS[] rightHandPosi)
         {
             // 角度の算出
             DirectionConputing(rightHandPosi);
@@ -102,13 +106,15 @@ namespace KineFigu
             DirectionSave();
 
             // 矩形が絵がれているかを判定
-            if (keyState.IsKeyDown(Keys.Enter))
+            if (keyState.IsKeyDown(Keys.Enter) || !handFlag)
             {
                 SquareCheck();
+                leftHnadShowFlag = false; 
             }
             else
             {
                 DirectionNameInitialize();
+                leftHnadShowFlag = true;
             }
 
             // フラグが立ったら図形を作る
@@ -120,12 +126,14 @@ namespace KineFigu
             FiguresSet();
 
             foreach(var value in figures) { value.Logic(); }
+
+            this.handFlag = handFlag;
         }
         
         /// <summary> 描画処理 </summary>
         public void Draw(SpriteBatch sBatch)
         {
-            foreach (var value in figures) { value.Draw(sBatch); }
+            foreach (var value in figures) { if (value == leftHnadPoint) { if (leftHnadShowFlag) { value.Draw(sBatch); } } else { value.Draw(sBatch); } }
             int num = 0;
             sBatch.DrawString(
                     sFont,
@@ -141,7 +149,7 @@ namespace KineFigu
                     );
             sBatch.DrawString(
                     sFont,
-                    flagCreate.ToString(),
+                    handFlag.ToString(),
                     new Vector2(0, num += 30),
                     Color.White
                     );

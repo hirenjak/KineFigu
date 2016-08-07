@@ -43,6 +43,7 @@
     <Compile Include="Scripts\Circle.cs" />
     <Compile Include="Scripts\Figure.cs" />
     <Compile Include="Scripts\Kinect.cs" />
+    <Compile Include="Scripts\LeapMotion.cs" />
     <Compile Include="Scripts\Source.cs" />
     <Compile Include="Scripts\MainScene.cs" />
     <Compile Include="Scripts\Program.cs" />
@@ -51,6 +52,9 @@
     <Compile Include="Scripts\Vector2PLUS.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="LeapCSharp.NET4.0">
+      <HintPath>..\..\..\Visual Studio 2015\Projects\ConsoleApplication8\ConsoleApplication8\LeapCSharp.NET4.0.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Kinect, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
@@ -69,6 +73,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
+    <Content Include="Leap.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LeapCSharp.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

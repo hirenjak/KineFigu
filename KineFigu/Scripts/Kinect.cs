@@ -30,6 +30,11 @@ namespace KineFigu
             rHandPosi = new Vector2PLUS[10];
         }
 
+        public void Stop()
+        {
+            kinect.Close();
+        }
+
 
         private void bFrameReader(object sender, BodyFrameArrivedEventArgs e)
         {
