@@ -19,6 +19,8 @@ namespace KineFigu
 
         Vector2PLUS screenSize;
 
+        KeyboardState keyState;
+
         public Source()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -61,10 +63,11 @@ namespace KineFigu
         /// <param name="gameTime"></param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            {  Exit(); }
+            keyState = Keyboard.GetState();
 
-            mainScene.Logic(screenSize, kinect.Get_LeftHandPosition(), kinect.Get_RightHandPosition());
+            if (keyState.IsKeyDown(Keys.Escape)) {  Exit(); }
+
+            mainScene.Logic(keyState, screenSize, kinect.Get_LeftHandPosition(), kinect.Get_RightHandPosition());
 
             
 

@@ -72,8 +72,6 @@ namespace KineFigu
             FiguresSet();
 
             sFont = Content.Load<SpriteFont>("Arial");
-
-
         }
 
 
@@ -92,7 +90,7 @@ namespace KineFigu
         Vector2PLUS endPosi;
 
         /// <summary> 計算処理 </summary>
-        public void Logic(Vector2PLUS screenSize, Vector2PLUS leftHandPosi, Vector2PLUS[] rightHandPosi)
+        public void Logic(KeyboardState keyState, Vector2PLUS screenSize, Vector2PLUS leftHandPosi, Vector2PLUS[] rightHandPosi)
         {
             // 角度の算出
             DirectionConputing(rightHandPosi);
@@ -104,7 +102,14 @@ namespace KineFigu
             DirectionSave();
 
             // 矩形が絵がれているかを判定
-            SquareCheck();
+            if (keyState.IsKeyDown(Keys.Enter))
+            {
+                SquareCheck();
+            }
+            else
+            {
+                DirectionNameInitialize();
+            }
 
             // フラグが立ったら図形を作る
             if (flagCreate) { CreateFigures(); }
@@ -158,10 +163,7 @@ namespace KineFigu
         {
             squares.Add(new Square(rightHnadPoint[0].position, new Vector2PLUS(100, 100), true));
             flagCreate = false;
-            for (int ID = 0; ID < directionNames.Length - 1; ID++)
-            {
-                directionNames[ID] = DirectionName.Center;
-            }
+            DirectionNameInitialize();
         }
 
         /// <summary> 矩形が描かれているか判定する </summary>
@@ -249,6 +251,14 @@ namespace KineFigu
             for (int ID = 0; ID < 10; ID++)
             {
                 rightHnadPoint[ID].Set_Position(PosiConverter(new Vector2PLUS(rightHandPosi[ID].X, rightHandPosi[ID].Y * -1), new Vector2PLUS(2.0f, 2.0f), screenSize));
+            }
+        }
+
+        private void DirectionNameInitialize()
+        {
+            for (int ID = 0; ID < directionNames.Length - 1; ID++)
+            {
+                directionNames[ID] = DirectionName.Center;
             }
         }
     }
