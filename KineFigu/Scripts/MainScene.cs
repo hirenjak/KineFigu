@@ -73,7 +73,7 @@ namespace KineFigu
         /// <summary> 計算処理 </summary>
         public void Logic(Vector2PLUS screenSize, Vector2PLUS leftHandPosi, Vector2PLUS[] rightHandPosi)
         {
-            leftHnadPoint.Set_Position(new Vector2PLUS(leftHandPosi.X, leftHandPosi.Y * -1) * 500 + new Vector2PLUS(400, 200));
+            leftHnadPoint.Set_Position(PosiConverter(new Vector2PLUS(leftHandPosi.X, leftHandPosi.Y * -1), new Vector2PLUS(2.0f, 2.0f),screenSize));//new Vector2PLUS(leftHandPosi.X, leftHandPosi.Y * -1) * 500 + new Vector2PLUS(400, 200));
 
             var tempPosiSum =  rightHandPosi[0] + rightHandPosi[1] + rightHandPosi[2];
 
@@ -90,6 +90,11 @@ namespace KineFigu
 
             // 図形クラスをまとめる処理
             FiguresSet();
+        }
+
+        private Vector2PLUS PosiConverter(Vector2PLUS target, Vector2PLUS targetMaxSize, Vector2PLUS screenSize)
+        {
+            return new Vector2PLUS(target.X / targetMaxSize.X * screenSize.X, target.Y / targetMaxSize.Y * screenSize.Y) + (screenSize / 2);
         }
 
         /// <summary> 描画処理 </summary>
