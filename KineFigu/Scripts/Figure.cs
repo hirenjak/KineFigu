@@ -18,13 +18,14 @@ namespace KineFigu
         /// <summary> 初期位置 </summary>
         protected Vector2PLUS initPosi { get; }
         /// <summary> 現在位置 </summary>
-        public Vector2PLUS position { get; set; }
+        public Vector2PLUS position;
         /// <summary> 大きさ </summary>
         protected Vector2PLUS size { get; set; }
         /// <summary> 描画色 </summary>
         protected Color color { get; set; }
 
         public bool gravityFlag;
+        public bool collisionFlag;
         private Vector2PLUS vector;
 
         /// <summary> 中心位置 </summary>
@@ -40,14 +41,16 @@ namespace KineFigu
             this.size = size;
             this.color = Color.White;
             this.gravityFlag = false;
+            this.collisionFlag = false;
             this.vector = new Vector2PLUS();
 
             Initialize();
         }
 
-        public Figure(Vector2PLUS initPosi, Vector2PLUS size, bool gravityFlag) : this(initPosi, size)
+        public Figure(Vector2PLUS initPosi, Vector2PLUS size, bool gravityFlag, bool collisionFlag) : this(initPosi, size)
         {
             this.gravityFlag = gravityFlag;
+            this.collisionFlag = collisionFlag;
         }
 
         /// <summary> 初期化処理 </summary>
@@ -56,11 +59,31 @@ namespace KineFigu
             this.position = initPosi;
         }
 
-        public void Logic()
+        public void Logic(Vector2PLUS screenSize, Vector2PLUS leftHnadPosi, Vector2PLUS rightHnadPosi)
         {
             if (gravityFlag)
             {
                 vector.Y += 0.098f;
+            }
+
+            if(vector.X != 0)
+            {
+                float tempVal = 0.5f;
+                if(vector.X < -tempVal ){ vector.X+= tempVal; }
+                else if(vector.X > tempVal) { vector.X -= tempVal; }
+                else { vector.X = 0; }
+            }
+
+            if (position.Y + vector.Y + size.Y > screenSize.Y) { position.Y = screenSize.Y - size.Y; vector.Y = 0; }
+
+            if (collisionFlag)
+            {
+                if (CollisionCheck.BoxToBox(position, position + size, leftHnadPosi, leftHnadPosi + new Vector2PLUS(30, 30)))
+                {
+                    Vector2PLUS temp = (position + (size / 2)) - (leftHnadPosi + new Vector2PLUS(15, 15));
+
+                    vector += new Vector2PLUS(1 / temp.X, 1 / temp.Y) * 10;
+                }
             }
 
             position += vector;

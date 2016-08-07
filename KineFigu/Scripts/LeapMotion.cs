@@ -17,10 +17,17 @@ namespace KineFigu
             {
                 Frame frame = controller.Frame();
 
-                foreach (Hand hand in frame.Hands)
+                if (frame.Hands.Count != 0)
                 {
-                    if (hand.Fingers[3].IsExtended) { extendFlag = true; }
-                    else { extendFlag = false; }
+                    foreach (Hand hand in frame.Hands)
+                    {
+                        if (hand.Fingers[3].IsExtended) { extendFlag = true; }
+                        else { extendFlag = false; }
+                    }
+                }
+                else
+                {
+                    extendFlag = true;
                 }
 
                 base.OnFrame(controller);

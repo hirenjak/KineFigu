@@ -57,8 +57,6 @@ namespace KineFigu
         /// <summary> 初期化処理 </summary>
         public void Initialize()
         {
-            squares.Add(new Square(new Vector2PLUS(100, 100), new Vector2PLUS(50, 50)));
-            circles.Add(new Circle(new Vector2PLUS(200, 100), new Vector2PLUS(50, 50)));
             leftHnadPoint = new Dot(new Vector2PLUS(), new Vector2PLUS(30, 30));
             for (int ID = 0; ID < 10; ID++)
             {
@@ -125,7 +123,7 @@ namespace KineFigu
             // 図形クラスをまとめる処理
             FiguresSet();
 
-            foreach(var value in figures) { value.Logic(); }
+            foreach(var value in figures) { value.Logic(screenSize,leftHnadPoint.position,rightHnadPoint[0].position); }
 
             this.handFlag = handFlag;
         }
@@ -133,7 +131,7 @@ namespace KineFigu
         /// <summary> 描画処理 </summary>
         public void Draw(SpriteBatch sBatch)
         {
-            foreach (var value in figures) { if (value == leftHnadPoint) { if (leftHnadShowFlag) { value.Draw(sBatch); } } else { value.Draw(sBatch); } }
+            foreach (var value in figures) {  value.Draw(sBatch); } 
             int num = 0;
             sBatch.DrawString(
                     sFont,
@@ -169,7 +167,7 @@ namespace KineFigu
         /// <summary> 図形を作成する </summary>
         private void CreateFigures()
         {
-            squares.Add(new Square(rightHnadPoint[0].position, new Vector2PLUS(100, 100), true));
+            squares.Add(new Square(rightHnadPoint[0].position, new Vector2PLUS(100, 100), true, true));
             flagCreate = false;
             DirectionNameInitialize();
         }

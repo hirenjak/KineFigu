@@ -22,7 +22,7 @@ namespace KineFigu
         public static bool BoxToBox(Vector2PLUS ATL, Vector2PLUS ABR, Vector2PLUS BTL, Vector2PLUS BBR)
         {
             //衝突していなければ true / 衝突していれば false を返す
-            if (ABR.X < BTL.X || ABR.Y > BTL.Y || ATL.X > BBR.X || ATL.Y > BBR.Y)
+            if (ABR.X < BTL.X || ABR.Y < BTL.Y || ATL.X > BBR.X || ATL.Y > BBR.Y)
                 return false;
             else
                 return true;
