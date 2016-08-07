@@ -42,7 +42,7 @@ namespace KineFigu
             
             for (int ID = 0; ID < 100; ID++)
             {
-                directionNames[ID] = DirectionName.Center;
+                directionNames[ID] = DirectionName.None;
                 oldRightHnadPosi[ID] = new Vector2PLUS();
             }
         }
@@ -81,10 +81,10 @@ namespace KineFigu
 
         float direction;
 
-        private enum DirectionName { Right, TopRight, Top, TopLeft, Left, BottomLeft, Bottom, BottomRight, Center}
+        private enum DirectionName { None, Right, TopRight, Top, TopLeft, Left, BottomLeft, Bottom, BottomRight, Center}
 
 
-        DirectionName nowDirectionName = DirectionName.Center;
+        DirectionName nowDirectionName = DirectionName.None;
         DirectionName[] directionNames = new DirectionName[100];
         
 
@@ -102,12 +102,12 @@ namespace KineFigu
             // 手の位置を描画に反映
             HandPositionAppply(screenSize, leftHandPosi, rightHandPosi);
 
-            // 方向の履歴を保存
-            DirectionSave();
 
             // 矩形が絵がれているかを判定
             if (keyState.IsKeyDown(Keys.Enter) || !handFlag)
             {
+                // 方向の履歴を保存
+                DirectionSave();
                 SquareCheck();
             }
             else
@@ -151,6 +151,16 @@ namespace KineFigu
                     new Vector2(0, num += 30),
                     Color.White
                     );
+
+            for(int ID = 0; ID < 10; ID++)
+            {
+                sBatch.DrawString(
+                    sFont,
+                    directionNames[ID].ToString(),
+                    new Vector2(0, num += 30),
+                    Color.White
+                    );
+            }
         }
 
 
@@ -214,7 +224,7 @@ namespace KineFigu
         /// <summary> 1つ前の過去データと比較して変化があれば保存される </summary>
         private void DirectionSave()
         {
-            if (nowDirectionName != directionNames[0])
+            if (nowDirectionName != DirectionName.Center && nowDirectionName != directionNames[0])
             {
                 for (int ID = directionNames.Length - 1; ID > 0; ID--)
                 {
@@ -232,7 +242,7 @@ namespace KineFigu
         {
             Vector2PLUS tempVect = rightHandPosi[0] - rightHandPosi[1];
             float offset = 0.01f;
-            if (tempVect.X < offset && tempVect.X > -offset && tempVect.Y < offset && tempVect.Y > -offset) { direction = 0; directionNames[0] = DirectionName.Center; }
+            if (tempVect.X < offset && tempVect.X > -offset && tempVect.Y < offset && tempVect.Y > -offset) { direction = 0; nowDirectionName = DirectionName.Center; }
             else
             {
                 float tempValue = (float)Math.Atan((tempVect.Y / tempVect.X));
@@ -271,7 +281,7 @@ namespace KineFigu
         {
             for (int ID = 0; ID < directionNames.Length - 1; ID++)
             {
-                directionNames[ID] = DirectionName.Center;
+                directionNames[ID] = DirectionName.None;
             }
         }
     }
