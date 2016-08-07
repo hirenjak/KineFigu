@@ -76,7 +76,8 @@ namespace KineFigu
         }
 
 
-        bool flagEnter = false;
+        bool flagTop = false, flagBottom = false, flagRight = false, flagLeft = false;
+
         bool flagCreate = false;
 
         float direction;
@@ -93,6 +94,8 @@ namespace KineFigu
 
         bool handFlag = false;
 
+        bool handInitFlag = true;
+
         /// <summary> 計算処理 </summary>
         public void Logic(KeyboardState keyState, bool handFlag, Vector2PLUS screenSize, Vector2PLUS leftHandPosi, Vector2PLUS[] rightHandPosi)
         {
@@ -106,8 +109,94 @@ namespace KineFigu
             // 矩形が絵がれているかを判定
             if (keyState.IsKeyDown(Keys.Enter) || !handFlag)
             {
-                // 方向の履歴を保存
-                DirectionSave();
+                if (handInitFlag) { startPosi = PosiConverter(new Vector2PLUS(rightHandPosi[0].X, rightHandPosi[0].Y * -1), new Vector2PLUS(2.0f, 2.0f), screenSize); handInitFlag = false; }
+
+                if (directionNames[0] == DirectionName.None)
+                {
+                    DirectionSave();
+                }
+                else if (nowDirectionName != DirectionName.Center)
+                {
+                    if (directionNames[0] == DirectionName.Top)
+                    {
+                        if (nowDirectionName == DirectionName.Left || nowDirectionName == DirectionName.Right)
+                        {
+                            if (Math.Abs((oldRightHnadPosi[0] - PosiConverter(new Vector2PLUS(rightHandPosi[0].X, rightHandPosi[0].Y * -1), new Vector2PLUS(2.0f, 2.0f), screenSize)).X) > 50)
+                            {
+                                // 方向の履歴を保存
+                                DirectionSave();
+                            }
+                        }
+                        else if (nowDirectionName == DirectionName.Bottom)
+                        {
+                            if (Math.Abs((oldRightHnadPosi[0] - PosiConverter(new Vector2PLUS(rightHandPosi[0].X, rightHandPosi[0].Y * -1), new Vector2PLUS(2.0f, 2.0f), screenSize)).Y) > 50)
+                            {
+                                // 方向の履歴を保存
+                                DirectionSave();
+                            }
+                        }
+                    }
+
+                    else if (directionNames[0] == DirectionName.Bottom)
+                    {
+                        if (nowDirectionName == DirectionName.Left || nowDirectionName == DirectionName.Right)
+                        {
+                            if (Math.Abs((oldRightHnadPosi[0] - PosiConverter(new Vector2PLUS(rightHandPosi[0].X, rightHandPosi[0].Y * -1), new Vector2PLUS(2.0f, 2.0f), screenSize)).X) > 50)
+                            {
+                                // 方向の履歴を保存
+                                DirectionSave();
+                            }
+                        }
+                        else if (nowDirectionName == DirectionName.Top)
+                        {
+                            if (Math.Abs((oldRightHnadPosi[0] - PosiConverter(new Vector2PLUS(rightHandPosi[0].X, rightHandPosi[0].Y * -1), new Vector2PLUS(2.0f, 2.0f), screenSize)).Y) > 50)
+                            {
+                                // 方向の履歴を保存
+                                DirectionSave();
+                            }
+                        }
+                    }
+
+                    else if (directionNames[0] == DirectionName.Left)
+                    {
+                        if (nowDirectionName == DirectionName.Top || nowDirectionName == DirectionName.Bottom)
+                        {
+                            if (Math.Abs((oldRightHnadPosi[0] - PosiConverter(new Vector2PLUS(rightHandPosi[0].X, rightHandPosi[0].Y * -1), new Vector2PLUS(2.0f, 2.0f), screenSize)).Y) > 50)
+                            {
+                                // 方向の履歴を保存
+                                DirectionSave();
+                            }
+                        }
+                        else if (nowDirectionName == DirectionName.Right)
+                        {
+                            if (Math.Abs((oldRightHnadPosi[0] - PosiConverter(new Vector2PLUS(rightHandPosi[0].X, rightHandPosi[0].Y * -1), new Vector2PLUS(2.0f, 2.0f), screenSize)).X) > 50)
+                            {
+                                // 方向の履歴を保存
+                                DirectionSave();
+                            }
+                        }
+                    }
+
+                    else if (directionNames[0] == DirectionName.Right)
+                    {
+                        if (nowDirectionName == DirectionName.Top || nowDirectionName == DirectionName.Bottom)
+                        {
+                            if (Math.Abs((oldRightHnadPosi[0] - PosiConverter(new Vector2PLUS(rightHandPosi[0].X, rightHandPosi[0].Y * -1), new Vector2PLUS(2.0f, 2.0f), screenSize)).Y) > 50)
+                            {
+                                // 方向の履歴を保存
+                                DirectionSave();
+                            }
+                        }
+                        else if (nowDirectionName == DirectionName.Left)
+                        {
+                            if (Math.Abs((oldRightHnadPosi[0] - PosiConverter(new Vector2PLUS(rightHandPosi[0].X, rightHandPosi[0].Y * -1), new Vector2PLUS(2.0f, 2.0f), screenSize)).X) > 50)
+                            {
+                                // 方向の履歴を保存
+                                DirectionSave();
+                            }
+                        }
+                    }
+                }
                 SquareCheck();
             }
             else
@@ -141,6 +230,12 @@ namespace KineFigu
                     );
             sBatch.DrawString(
                     sFont,
+                    nowDirectionName.ToString(),
+                    new Vector2(0, num += 30),
+                    Color.White
+                    );
+            sBatch.DrawString(
+                    sFont,
                     direction.ToString(),
                     new Vector2(0, num+=30),
                     Color.White
@@ -151,8 +246,14 @@ namespace KineFigu
                     new Vector2(0, num += 30),
                     Color.White
                     );
+            sBatch.DrawString(
+                    sFont,
+                    flagBottom + " : " + flagRight + " : " + flagTop + " : " + flagLeft,
+                    new Vector2(0, num += 30),
+                    Color.White
+                    );
 
-            for(int ID = 0; ID < 10; ID++)
+            for (int ID = 0; ID < 10; ID++)
             {
                 sBatch.DrawString(
                     sFont,
@@ -177,7 +278,7 @@ namespace KineFigu
         /// <summary> 図形を作成する </summary>
         private void CreateFigures()
         {
-            squares.Add(new Square(rightHnadPoint[0].position, new Vector2PLUS(Math.Abs(endPosi.X - startPosi.X), Math.Abs(endPosi.Y - startPosi.Y)), true, true));
+            squares.Add(new Square(startPosi, new Vector2PLUS(Math.Abs(endPosi.X - startPosi.X), Math.Abs(endPosi.Y - startPosi.Y)), true, true));
             flagCreate = false;
             DirectionNameInitialize();
         }
@@ -185,27 +286,29 @@ namespace KineFigu
         /// <summary> 矩形が描かれているか判定する </summary>
         private void SquareCheck()
         {
-            startPosi = new Vector2PLUS();
             endPosi = new Vector2PLUS();
 
             for (int ID = 0; ID < directionNames.Length; ID++)
             {
-                startPosi = oldRightHnadPosi[ID];
-                if (directionNames[ID] == DirectionName.Bottom)
+                if (directionNames[ID] == DirectionName.Left)
                 {
+                    flagBottom = true;
                     for (int ID2 = ID; ID2 < directionNames.Length; ID2++)
                     {
-                        if (directionNames[ID2] == DirectionName.Right)
+                        if (directionNames[ID2] == DirectionName.Top)
                         {
                             endPosi = oldRightHnadPosi[ID2];
+                            flagRight = true;
                             for (int ID3 = ID2; ID3 < directionNames.Length; ID3++)
                             {
-                                if (directionNames[ID3] == DirectionName.Top)
+                                if (directionNames[ID3] == DirectionName.Right)
                                 {
+                                    flagTop = true;
                                     for (int ID4 = ID3; ID4 < directionNames.Length; ID4++)
                                     {
-                                        if (directionNames[ID4] == DirectionName.Left)
+                                        if (directionNames[ID4] == DirectionName.Bottom)
                                         {
+                                            flagLeft = true;
                                             flagCreate = true;
                                             break;
                                         }
@@ -253,13 +356,13 @@ namespace KineFigu
                 else if (tempVect.Y < 0) { direction += 360; }
 
                 if (direction >= 337.5f || direction < 22.5f) { nowDirectionName = DirectionName.Right; }
-                else if (direction >= 22.5f && direction < 67.5f) { nowDirectionName = DirectionName.TopRight; }
+               // else if (direction >= 22.5f && direction < 67.5f) { nowDirectionName = DirectionName.TopRight; }
                 else if (direction >= 67.5f && direction < 112.5f) { nowDirectionName = DirectionName.Top; }
-                else if (direction >= 112.5f && direction < 157.5f) { nowDirectionName = DirectionName.TopLeft; }
+               // else if (direction >= 112.5f && direction < 157.5f) { nowDirectionName = DirectionName.TopLeft; }
                 else if (direction >= 157.5f && direction < 202.5f) { nowDirectionName = DirectionName.Left; }
-                else if (direction >= 202.5f && direction < 247.5f) { nowDirectionName = DirectionName.BottomLeft; }
+               // else if (direction >= 202.5f && direction < 247.5f) { nowDirectionName = DirectionName.BottomLeft; }
                 else if (direction >= 247.5f && direction < 292.5f) { nowDirectionName = DirectionName.Bottom; }
-                else if (direction >= 292.5f && direction < 337.5f) { nowDirectionName = DirectionName.BottomRight; }
+               // else if (direction >= 292.5f && direction < 337.5f) { nowDirectionName = DirectionName.BottomRight; }
             }
         }
 
@@ -283,6 +386,11 @@ namespace KineFigu
             {
                 directionNames[ID] = DirectionName.None;
             }
+            flagLeft = false;
+            flagTop = false;
+            flagBottom = false;
+            flagRight = false;
+            handInitFlag = true;
         }
     }
 }
