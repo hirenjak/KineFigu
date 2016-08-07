@@ -10,5 +10,10 @@ namespace KineFigu
         {
             texture = Content.Load<Texture2D>("Square");
         }
+
+        public Square(Vector2PLUS initPosi, Vector2PLUS size, bool gravityFlag) : base(initPosi, size, gravityFlag)
+        {
+            texture = Content.Load<Texture2D>("Square");
+        }
     }
 }

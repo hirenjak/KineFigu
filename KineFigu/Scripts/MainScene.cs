@@ -63,7 +63,6 @@ namespace KineFigu
             for (int ID = 0; ID < 10; ID++)
             {
                 rightHnadPoint[ID] = new Dot(new Vector2PLUS(), new Vector2PLUS(10, 10));
-
             }
         }
 
@@ -80,8 +79,6 @@ namespace KineFigu
 
         bool flagEnter = false;
         bool flagCreate = false;
-
-        bool flagTop = false, flagBottom = false, flagLeft = false, flagRight = false;
 
         float direction;
 
@@ -100,7 +97,6 @@ namespace KineFigu
             // 角度の算出
             DirectionConputing(rightHandPosi);
             
-
             // 手の位置を描画に反映
             HandPositionAppply(screenSize, leftHandPosi, rightHandPosi);
 
@@ -113,8 +109,12 @@ namespace KineFigu
             // フラグが立ったら図形を作る
             if (flagCreate) { CreateFigures(); }
             
+
+
             // 図形クラスをまとめる処理
             FiguresSet();
+
+            foreach(var value in figures) { value.Logic(); }
         }
         
         /// <summary> 描画処理 </summary>
@@ -140,40 +140,6 @@ namespace KineFigu
                     new Vector2(0, num += 30),
                     Color.White
                     );
-            sBatch.DrawString(
-                    sFont,
-                    flagCreate.ToString(),
-                    new Vector2(0, num += 30),
-                    Color.White
-                    );
-            sBatch.DrawString(
-                    sFont,
-                    flagCreate.ToString(),
-                    new Vector2(0, num += 30),
-                    Color.White
-                    );
-            sBatch.DrawString(
-                    sFont,
-                    flagCreate.ToString(),
-                    new Vector2(0, num += 30),
-                    Color.White
-                    );
-            sBatch.DrawString(
-                    sFont,
-                    flagCreate.ToString(),
-                    new Vector2(0, num += 30),
-                    Color.White
-                    );
-
-            //for (int ID = 0; ID < 10; ID++)
-            //{
-            //    sBatch.DrawString(
-            //        sFont,
-            //        directionName[ID] + " :   " + (int)direction[ID] + "    :   " + directionName[ID],
-            //        new Vector2(0, ID * 30),
-            //        Color.White
-            //        );
-            //}
         }
 
 
@@ -190,7 +156,7 @@ namespace KineFigu
         /// <summary> 図形を作成する </summary>
         private void CreateFigures()
         {
-            squares.Add(new Square(rightHnadPoint[0].position, new Vector2PLUS(100, 100)));
+            squares.Add(new Square(rightHnadPoint[0].position, new Vector2PLUS(100, 100), true));
             flagCreate = false;
             for (int ID = 0; ID < directionNames.Length - 1; ID++)
             {

@@ -18,11 +18,14 @@ namespace KineFigu
         /// <summary> 初期位置 </summary>
         protected Vector2PLUS initPosi { get; }
         /// <summary> 現在位置 </summary>
-        public Vector2PLUS position { get; protected set; }
+        public Vector2PLUS position { get; set; }
         /// <summary> 大きさ </summary>
         protected Vector2PLUS size { get; set; }
         /// <summary> 描画色 </summary>
         protected Color color { get; set; }
+
+        public bool gravityFlag;
+        private Vector2PLUS vector;
 
         /// <summary> 中心位置 </summary>
         public Vector2PLUS centerPosi { get { return position + (size / 2); } }
@@ -36,9 +39,15 @@ namespace KineFigu
             this.initPosi = initPosi;
             this.size = size;
             this.color = Color.White;
+            this.gravityFlag = false;
+            this.vector = new Vector2PLUS();
 
-            // 初期化処理
             Initialize();
+        }
+
+        public Figure(Vector2PLUS initPosi, Vector2PLUS size, bool gravityFlag) : this(initPosi, size)
+        {
+            this.gravityFlag = gravityFlag;
         }
 
         /// <summary> 初期化処理 </summary>
@@ -46,6 +55,17 @@ namespace KineFigu
         {
             this.position = initPosi;
         }
+
+        public void Logic()
+        {
+            if (gravityFlag)
+            {
+                vector.Y += 0.098f;
+            }
+
+            position += vector;
+        }
+
         /// <summary> 描画処理 </summary>
         /// <param name="sBatch">SpriteBatch</param>
         public void Draw(SpriteBatch sBatch)
