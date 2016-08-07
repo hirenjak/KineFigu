@@ -23,6 +23,8 @@ namespace KineFigu
         Dot leftHnadPoint;
         Dot[] rightHnadPoint;
 
+        Vector2PLUS[] oldRightHnadPosi;
+
         // 纏める用
         List<Figure> figures;
 
@@ -35,12 +37,13 @@ namespace KineFigu
             squares = new List<Square>();
             circles = new List<Circle>();
             rightHnadPoint = new Dot[10];
-
+            oldRightHnadPosi = new Vector2PLUS[100];
             direction = 0;
             
             for (int ID = 0; ID < 100; ID++)
             {
                 directionNames[ID] = DirectionName.Center;
+                oldRightHnadPosi[ID] = new Vector2PLUS();
             }
         }
 
@@ -83,8 +86,7 @@ namespace KineFigu
 
         DirectionName nowDirectionName = DirectionName.Center;
         DirectionName[] directionNames = new DirectionName[100];
-
-        bool leftHnadShowFlag = true;
+        
 
         Vector2PLUS startPosi;
         Vector2PLUS endPosi;
@@ -107,12 +109,10 @@ namespace KineFigu
             if (keyState.IsKeyDown(Keys.Enter) || !handFlag)
             {
                 SquareCheck();
-                leftHnadShowFlag = false; 
             }
             else
             {
                 DirectionNameInitialize();
-                leftHnadShowFlag = true;
             }
 
             // フラグが立ったら図形を作る
@@ -167,7 +167,7 @@ namespace KineFigu
         /// <summary> 図形を作成する </summary>
         private void CreateFigures()
         {
-            squares.Add(new Square(rightHnadPoint[0].position, new Vector2PLUS(100, 100), true, true));
+            squares.Add(new Square(rightHnadPoint[0].position, new Vector2PLUS(Math.Abs(endPosi.X - startPosi.X), Math.Abs(endPosi.Y - startPosi.Y)), true, true));
             flagCreate = false;
             DirectionNameInitialize();
         }
@@ -175,14 +175,19 @@ namespace KineFigu
         /// <summary> 矩形が描かれているか判定する </summary>
         private void SquareCheck()
         {
+            startPosi = new Vector2PLUS();
+            endPosi = new Vector2PLUS();
+
             for (int ID = 0; ID < directionNames.Length; ID++)
             {
+                startPosi = oldRightHnadPosi[ID];
                 if (directionNames[ID] == DirectionName.Bottom)
                 {
                     for (int ID2 = ID; ID2 < directionNames.Length; ID2++)
                     {
                         if (directionNames[ID2] == DirectionName.Right)
                         {
+                            endPosi = oldRightHnadPosi[ID2];
                             for (int ID3 = ID2; ID3 < directionNames.Length; ID3++)
                             {
                                 if (directionNames[ID3] == DirectionName.Top)
@@ -214,9 +219,11 @@ namespace KineFigu
                 for (int ID = directionNames.Length - 1; ID > 0; ID--)
                 {
                     directionNames[ID] = directionNames[ID - 1];
+                    oldRightHnadPosi[ID] = oldRightHnadPosi[ID - 1];
                 }
 
                 directionNames[0] = nowDirectionName;
+                oldRightHnadPosi[0] = rightHnadPoint[0].position;
             }
         }
 

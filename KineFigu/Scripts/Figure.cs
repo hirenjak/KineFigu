@@ -84,6 +84,13 @@ namespace KineFigu
 
                     vector += new Vector2PLUS(1 / temp.X, 1 / temp.Y) * 10;
                 }
+
+                if (CollisionCheck.BoxToBox(position, position + size, rightHnadPosi, rightHnadPosi + new Vector2PLUS(30, 30)))
+                {
+                    Vector2PLUS temp = (position + (size / 2)) - (rightHnadPosi + new Vector2PLUS(15, 15));
+
+                    vector += new Vector2PLUS(1 / temp.X, 1 / temp.Y) * 10;
+                }
             }
 
             position += vector;
