@@ -2,3 +2,9 @@
 # この .gitignore ファイルは Microsoft(R) Visual Studio によって自動的に作成されました。
 ################################################################################
 
+/KineFigu/bin/
+/KineFigu/obj/
+/TestKinect/bin/
+/TestKinect/obj/
+/TestLeapMotion/obj/
+/TestLeapMotion/bin/
