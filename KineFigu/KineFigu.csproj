@@ -38,6 +38,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
     <Compile Include="Dot.cs" />
     <Compile Include="Scripts\Circle.cs" />
     <Compile Include="Scripts\Figure.cs" />
