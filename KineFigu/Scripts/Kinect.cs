@@ -11,6 +11,8 @@ namespace KineFigu
         Vector2PLUS leftHand;
         Vector2PLUS rightHand;
 
+        Vector2PLUS[] rHandPosi;
+
 
         public Kinect()
         {
@@ -24,6 +26,8 @@ namespace KineFigu
 
             leftHand = new Vector2PLUS();
             rightHand = new Vector2PLUS();
+
+            rHandPosi = new Vector2PLUS[10];
         }
 
 
@@ -43,6 +47,13 @@ namespace KineFigu
                     rightHand = new Vector2PLUS(value.Joints[JointType.HandRight].Position.X, value.Joints[JointType.HandRight].Position.Y);
                 }
             }
+
+            for (int ID = 9; ID > 0; ID--)
+            {
+                rHandPosi[ID] = rHandPosi[ID - 1];
+            }
+
+            rHandPosi[0] = rightHand;
         }
 
         public Vector2PLUS Get_LeftHandPosition()
@@ -50,9 +61,9 @@ namespace KineFigu
             return leftHand;
         }
 
-        public Vector2PLUS Get_RightHandPosition()
+        public Vector2PLUS[] Get_RightHandPosition()
         {
-            return rightHand;
+            return rHandPosi;
         }
     }
 }

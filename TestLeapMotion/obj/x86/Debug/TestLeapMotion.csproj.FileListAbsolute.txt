@@ -1,0 +1,11 @@
+C:\Users\Hiroto\Documents\Git\KineFigu\TestLeapMotion\bin\x86\Debug\TestLeapMotion.exe.config
+C:\Users\Hiroto\Documents\Git\KineFigu\TestLeapMotion\bin\x86\Debug\TestLeapMotion.exe
+C:\Users\Hiroto\Documents\Git\KineFigu\TestLeapMotion\bin\x86\Debug\TestLeapMotion.pdb
+C:\Users\Hiroto\Documents\Git\KineFigu\TestLeapMotion\bin\x86\Debug\LeapCSharp.NET4.0.dll
+C:\Users\Hiroto\Documents\Git\KineFigu\TestLeapMotion\obj\x86\Debug\TestLeapMotion.csprojResolveAssemblyReference.cache
+C:\Users\Hiroto\Documents\Git\KineFigu\TestLeapMotion\obj\x86\Debug\TestLeapMotion.Properties.Resources.resources
+C:\Users\Hiroto\Documents\Git\KineFigu\TestLeapMotion\obj\x86\Debug\TestLeapMotion.csproj.GenerateResource.Cache
+C:\Users\Hiroto\Documents\Git\KineFigu\TestLeapMotion\obj\x86\Debug\TestLeapMotion.exe
+C:\Users\Hiroto\Documents\Git\KineFigu\TestLeapMotion\obj\x86\Debug\TestLeapMotion.pdb
+C:\Users\Hiroto\Documents\Git\KineFigu\TestLeapMotion\bin\x86\Debug\Leap.dll
+C:\Users\Hiroto\Documents\Git\KineFigu\TestLeapMotion\bin\x86\Debug\LeapCSharp.dll
