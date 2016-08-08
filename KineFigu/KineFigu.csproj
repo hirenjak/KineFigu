@@ -72,6 +72,9 @@
     <Content Include="Content\Square.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Square2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
     <Content Include="Leap.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
